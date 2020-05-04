@@ -1,5 +1,5 @@
 {
-  "name": "juno-api",
+  "name": "juno-api-node",
   "version": "0.1.0",
   "description": "Bindings for Juno API",
   "main": "index.js",
@@ -15,13 +15,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Rogério Araújo <rogerio.araujo@mail.com>",
-  "repository": "rodgeraraujo/juno",
+  "repository": "rodgeraraujo/juno-api",
   "license": "MIT",
   "dependencies": {
     "got": "^10.1.0",
     "lodash": "^4.17.10"
   },
   "bugs": {
-    "url": "https://github.com/rodgeraraujo/juno/issues"
+    "url": "https://github.com/rodgeraraujo/juno-api/issues"
   }
 }
