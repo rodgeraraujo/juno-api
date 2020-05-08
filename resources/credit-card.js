@@ -14,8 +14,8 @@ const base = require('../mixins/index');
 function CreditCard(juno) {
   this.juno = juno;
 
-  this.name = 'credit-cards';
-  this.key = 'tokenization';
+  this.name = 'credit-cards/tokenization';
+  this.key = '';
 }
 
 assign(CreditCard.prototype, base);

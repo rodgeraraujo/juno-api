@@ -14,8 +14,8 @@ const base = require('../mixins/index');
 function BusinessArea(juno) {
   this.juno = juno;
 
-  this.name = 'data';
-  this.key = 'business-areas';
+  this.name = 'data/business-areas';
+  this.key = '';
 }
 
 assign(BusinessArea.prototype, base);

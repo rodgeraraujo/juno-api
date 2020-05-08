@@ -1,6 +1,6 @@
 'use strict';
 
-var pkg = reqzuire('./package.json');
+var pkg = require('./package.json');
 const defaults = require('lodash/defaults');
 const got = require('got');
 const EventEmitter = require('events');
@@ -74,6 +74,7 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
     options.json = key ? { [key]: data } : data;
   }
 
+  console.log(uri);
   return got(uri, options).then(
     (res) => {
       const body = res.body;
@@ -148,4 +149,5 @@ function getClientHash(clientId, clientSecret) {
   let buff = new Buffer(data);
   return buff.toString('base64');
 }
+
 module.exports = Juno;

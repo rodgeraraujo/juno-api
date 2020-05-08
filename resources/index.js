@@ -2,6 +2,7 @@
 
 const map = {
   authorization: 'authorization',
+  balance: 'balance',
   bank: 'bank',
   businessArea: 'business-area',
   charge: 'charge',

@@ -1,6 +1,6 @@
 {
-  "name": "juno-api-node",
-  "version": "0.1.0",
+  "name": "juno-api",
+  "version": "0.1.1",
   "description": "Bindings for Juno API",
   "main": "index.js",
   "engines": {

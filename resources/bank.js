@@ -11,13 +11,13 @@ const base = require('../mixins/index');
  * @constructor
  * @public
  */
-function CompanyTypes(juno) {
+function Banks(juno) {
   this.juno = juno;
 
-  this.name = 'credit-cards';
-  this.key = 'tokenization';
+  this.name = 'data/banks';
+  this.key = '';
 }
 
-assign(CompanyTypes.prototype, base);
+assign(Banks.prototype, base);
 
-module.exports = CompanyTypes;
+module.exports = Banks;

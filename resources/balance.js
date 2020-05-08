@@ -16,6 +16,8 @@ function Balance(juno) {
 
   this.name = 'balance';
   this.key = '';
+
+  console.log(this);
 }
 
 assign(Balance.prototype, base);
