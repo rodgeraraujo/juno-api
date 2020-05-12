@@ -95,6 +95,7 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
       return data;
     },
     (err) => {
+      // console.log(err.response.body);
       return Promise.reject(err);
     }
   );

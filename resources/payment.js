@@ -14,7 +14,7 @@ const base = require('../mixins/index');
 function Payment(juno) {
   this.juno = juno;
 
-  this.name = 'charges';
+  this.name = 'payments';
   this.key = '';
 }
 
