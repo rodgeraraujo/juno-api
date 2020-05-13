@@ -9,6 +9,7 @@ const map = {
   companyTypes: 'company-types',
   creditCard: 'credit-card',
   digitalAccount: 'digital-account',
+  document: 'document',
   payment: 'payment',
 };
 

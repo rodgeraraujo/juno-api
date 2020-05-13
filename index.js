@@ -71,10 +71,13 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
   options.headers['X-Api-Version'] = !this.options.apiVersion ? 2 : this.options.apiVersion;
 
   if (data) {
-    options.json = key ? { [key]: data } : data;
+    if (key === 'files') {
+      options.form = data;
+    } else options.json = key ? { [key]: data } : data;
   }
 
-  console.log(uri);
+  console.log(options);
+
   return got(uri, options).then(
     (res) => {
       const body = res.body;
