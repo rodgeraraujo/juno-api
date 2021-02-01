@@ -10,6 +10,8 @@ const map = {
     creditCard: 'credit-card',
     digitalAccount: 'digital-account',
     payment: 'payment',
+    credential: 'credential',
+    credidCardToken: 'creditcard-token',
 };
 
 /**

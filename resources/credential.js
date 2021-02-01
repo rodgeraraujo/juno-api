@@ -5,19 +5,19 @@ const assign = require('lodash/assign');
 const base = require('../mixins/index');
 
 /**
- * Tokenize a Credit Card instance.
+ * Creates a Credential instance.
  *
  * @param {Juno} juno Reference to the Juno instance
  * @constructor
  * @public
  */
-function CreditCard(juno) {
+function Credential(juno) {
     this.juno = juno;
 
-    this.name = 'credit-cards';
+    this.name = 'credentials/public-key';
     this.key = '';
 }
 
-assign(CreditCard.prototype, base);
+assign(Credential.prototype, base);
 
-module.exports = CreditCard;
+module.exports = Credential;
