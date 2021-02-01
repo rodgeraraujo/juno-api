@@ -1,15 +1,15 @@
 'use strict';
 
 const map = {
-  authorization: 'authorization',
-  balance: 'balance',
-  bank: 'bank',
-  businessArea: 'business-area',
-  charge: 'charge',
-  companyTypes: 'company-types',
-  creditCard: 'credit-card',
-  digitalAccount: 'digital-account',
-  payment: 'payment',
+    authorization: 'authorization',
+    balance: 'balance',
+    bank: 'bank',
+    businessArea: 'business-area',
+    charge: 'charge',
+    companyTypes: 'company-types',
+    creditCard: 'credit-card',
+    digitalAccount: 'digital-account',
+    payment: 'payment',
 };
 
 /**
@@ -19,23 +19,23 @@ const map = {
  * @private
  */
 function registerAll(Juno) {
-  Object.keys(map).forEach((prop) => {
-    Object.defineProperty(Juno.prototype, prop, {
-      configurable: true,
-      get: function get() {
-        const resource = require(`./${map[prop]}`);
+    Object.keys(map).forEach((prop) => {
+        Object.defineProperty(Juno.prototype, prop, {
+            configurable: true,
+            get: function get() {
+                const resource = require(`./${map[prop]}`);
 
-        return Object.defineProperty(this, prop, {
-          value: new resource(this),
-        })[prop];
-      },
-      set: function set(value) {
-        return Object.defineProperty(this, prop, { value })[prop];
-      },
+                return Object.defineProperty(this, prop, {
+                    value: new resource(this),
+                })[prop];
+            },
+            set: function set(value) {
+                Object.defineProperty(this, prop, { value })[prop];
+            },
+        });
     });
-  });
 }
 
 module.exports = {
-  registerAll,
+    registerAll,
 };

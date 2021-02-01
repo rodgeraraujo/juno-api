@@ -12,10 +12,10 @@ const base = require('../mixins/index');
  * @public
  */
 function Banks(juno) {
-  this.juno = juno;
+    this.juno = juno;
 
-  this.name = 'data/banks';
-  this.key = '';
+    this.name = 'data/banks';
+    this.key = '';
 }
 
 assign(Banks.prototype, base);

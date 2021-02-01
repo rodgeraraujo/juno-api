@@ -10,11 +10,11 @@ const assign = require('lodash/assign');
  * @public
  */
 function Authorization(juno) {
-  this.juno = juno;
+    this.juno = juno;
 
-  this.name = 'oauth';
-  this.key = 'token';
-  this.query = 'client_credentials';
+    this.name = 'oauth';
+    this.key = 'token';
+    this.query = 'client_credentials';
 }
 
 assign(Authorization.prototype);
@@ -26,9 +26,9 @@ assign(Authorization.prototype);
  * @public
  */
 Authorization.prototype.accessToken = function () {
-  const path = buildPath(this.name, this.key, this.query);
-  const url = { path, ...this.juno.baseUrl };
-  return this.juno.getAccessToken(url, 'POST');
+    const path = buildPath(this.name, this.key, this.query);
+    const url = { path, ...this.juno.baseUrl };
+    return this.juno.getAccessToken(url, 'POST');
 };
 
 /**
@@ -41,18 +41,18 @@ Authorization.prototype.accessToken = function () {
  * @private
  */
 function buildPath(name, key, query) {
-  query || query === 0 || (query = '');
+    query || query === 0 || (query = '');
 
-  let path = '';
+    let path = '';
 
-  path += `/authorization-server/${name}/${key}`;
+    path += `/authorization-server/${name}/${key}`;
 
-  if (query) {
-    path += `?grant_type=${query}`;
-  }
-  path = path.replace(/\/+/g, '/').replace(/\/$/, '');
+    if (query) {
+        path += `?grant_type=${query}`;
+    }
+    path = path.replace(/\/+/g, '/').replace(/\/$/, '');
 
-  return path;
+    return path;
 }
 
 module.exports = Authorization;

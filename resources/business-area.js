@@ -12,10 +12,10 @@ const base = require('../mixins/index');
  * @public
  */
 function BusinessArea(juno) {
-  this.juno = juno;
+    this.juno = juno;
 
-  this.name = 'data/business-areas';
-  this.key = '';
+    this.name = 'data/business-areas';
+    this.key = '';
 }
 
 assign(BusinessArea.prototype, base);

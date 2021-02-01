@@ -1,10 +1,11 @@
 'use strict';
 
-var pkg = require('./package.json');
+const pkg = require('./package.json');
 const defaults = require('lodash/defaults');
 const got = require('got');
 const EventEmitter = require('events');
-var resources = require('./resources');
+const resources = require('./resources');
+const url = require('url');
 
 /**
  * Creates a Juno instance.
@@ -20,23 +21,23 @@ var resources = require('./resources');
  * @public
  */
 function Juno(options) {
-  if (!(this instanceof Juno)) return new Juno(options);
-  if (
-    !options ||
-    !options.baseUrl ||
-    (!options.baseUrl && (!options.resourceToken || !options.accessToken)) ||
-    (!options.baseUrl && (!options.secretId || !options.clientSecret))
-  ) {
-    throw new Error('Missing or invalid options');
-  }
+    if (!(this instanceof Juno)) return new Juno(options);
+    if (
+        !options ||
+        !options.baseUrl ||
+        (!options.baseUrl && (!options.resourceToken || !options.accessToken)) ||
+        (!options.baseUrl && (!options.secretId || !options.clientSecret))
+    ) {
+        throw new Error('Missing or invalid options');
+    }
 
-  EventEmitter.call(this);
-  this.options = defaults(options, {});
+    EventEmitter.call(this);
+    this.options = defaults(options, {});
 
-  this.baseUrl = {
-    hostname: options.baseUrl,
-    protocol: 'https:',
-  };
+    this.baseUrl = {
+        hostname: options.baseUrl,
+        protocol: 'https:',
+    };
 }
 
 Object.setPrototypeOf(Juno.prototype, EventEmitter.prototype);
@@ -53,75 +54,74 @@ Object.setPrototypeOf(Juno.prototype, EventEmitter.prototype);
  * @private
  */
 Juno.prototype.request = function request(uri, method, key, data, headers) {
-  const options = {
-    headers: { 'User-Agent': `${pkg.name}/${pkg.version}`, ...headers },
-    responseType: 'json',
-    retry: 0,
-    method,
-  };
+    const options = {
+        headers: { 'User-Agent': `${pkg.name}/${pkg.version}`, ...headers },
+        responseType: 'json',
+        retry: 0,
+        method,
+    };
 
-  if (this.options.accessToken) {
-    options.headers['Authorization'] = 'Bearer ' + this.options.accessToken;
-  }
-
-  if (this.options.resourceToken) {
-    options.headers['X-Resource-Token'] = this.options.resourceToken;
-  }
-
-  options.headers['X-Api-Version'] = !this.options.apiVersion ? 2 : this.options.apiVersion;
-
-  if (data) {
-    options.json = key ? { [key]: data } : data;
-  }
-
-  console.log(uri);
-  return got(uri, options).then(
-    (res) => {
-      const body = res.body;
-
-      if (res.statusCode === 202) {
-        const { path, search } = url.parse(res.headers['location']);
-        return delay(retryAfter).then(() => {
-          const uri = { path, ...this.baseUrl };
-
-          if (search) uri.search = search;
-
-          return this.request(uri, 'GET', key);
-        });
-      }
-
-      const data = key ? body[key] : body || {};
-
-      return data;
-    },
-    (err) => {
-      // console.log(err.response.body);
-      return Promise.reject(err);
+    if (this.options.accessToken) {
+        options.headers['Authorization'] = 'Bearer ' + this.options.accessToken;
     }
-  );
+
+    if (this.options.resourceToken) {
+        options.headers['X-Resource-Token'] = this.options.resourceToken;
+    }
+
+    options.headers['X-Api-Version'] = !this.options.apiVersion ? 2 : this.options.apiVersion;
+
+    if (data) {
+        options.json = key ? { [key]: data } : data;
+    }
+
+    return got(uri, options).then(
+        (res) => {
+            const body = res.body;
+
+            if (res.statusCode === 202) {
+                const retryAfter = res.headers['retry-after'] * 1000 || 0;
+                const { path, search } = url.URL(res.headers['location']);
+                return delay(retryAfter).then(() => {
+                    const uri = { path, ...this.baseUrl };
+
+                    if (search) uri.search = search;
+
+                    return this.request(uri, 'GET', key);
+                });
+            }
+
+            const data = key ? body[key] : body || {};
+
+            return data;
+        },
+        (err) => {
+            return Promise.reject(err);
+        }
+    );
 };
 
 Juno.prototype.getAccessToken = function getAccessToken(uri, method, headers) {
-  const options = {
-    headers: { 'User-Agent': `${pkg.name}/${pkg.version}`, ...headers },
-    responseType: 'json',
-    retry: 0,
-    method,
-  };
+    const options = {
+        headers: { 'User-Agent': `${pkg.name}/${pkg.version}`, ...headers },
+        responseType: 'json',
+        retry: 0,
+        method,
+    };
 
-  var hashBase64 = getClientHash(this.options.secretId, this.options.clientSecret);
+    const hashBase64 = getClientHash(this.options.secretId, this.options.clientSecret);
 
-  options.headers['Authorization'] = 'Basic ' + hashBase64;
+    options.headers['Authorization'] = 'Basic ' + hashBase64;
 
-  return got(uri, options).then(
-    (res) => {
-      const body = res.body;
-      return body;
-    },
-    (err) => {
-      return Promise.reject(err);
-    }
-  );
+    return got(uri, options).then(
+        (res) => {
+            const body = res.body;
+            return body;
+        },
+        (err) => {
+            return Promise.reject(err);
+        }
+    );
 };
 
 resources.registerAll(Juno);
@@ -134,7 +134,7 @@ resources.registerAll(Juno);
  * @private
  */
 function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -146,9 +146,9 @@ function delay(ms) {
  * @private
  */
 function getClientHash(clientId, clientSecret) {
-  let data = `${clientId}:${clientSecret}`;
-  let buff = new Buffer(data);
-  return buff.toString('base64');
+    const data = `${clientId}:${clientSecret}`;
+    const buff = new Buffer(data);
+    return buff.toString('base64');
 }
 
 module.exports = Juno;

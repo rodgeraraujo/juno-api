@@ -12,12 +12,12 @@ const base = require('../mixins/index');
  * @public
  */
 function Balance(juno) {
-  this.juno = juno;
+    this.juno = juno;
 
-  this.name = 'balance';
-  this.key = '';
+    this.name = 'balance';
+    this.key = '';
 
-  console.log(this);
+    console.log(this);
 }
 
 assign(Balance.prototype, base);

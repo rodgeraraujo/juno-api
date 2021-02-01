@@ -1,27 +1,39 @@
 {
-  "name": "juno-api",
-  "version": "0.1.2",
-  "description": "Bindings for Juno API",
-  "main": "index.js",
-  "engines": {
-    "node": ">=v11.0.0"
-  },
-  "files": [
-    "resources",
-    "mixins",
-    "index.js"
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Rogério Araújo <rogerio.araujo@mail.com>",
-  "repository": "rodgeraraujo/juno-api",
-  "license": "MIT",
-  "dependencies": {
-    "got": "^10.1.0",
-    "lodash": "^4.17.10"
-  },
-  "bugs": {
-    "url": "https://github.com/rodgeraraujo/juno-api/issues"
-  }
+    "name": "juno-api",
+    "version": "0.1.2",
+    "description": "Bindings for Juno API",
+    "main": "index.js",
+    "engines": {
+        "node": ">=v11.0.0"
+    },
+    "files": [
+        "resources",
+        "mixins",
+        "index.js"
+    ],
+    "scripts": {
+        "test": "npm run lint && c8 --reporter=lcov --reporter=text mocha",
+        "watch": "mocha -w",
+        "lint": "eslint --ignore-path .gitignore . && prettier --check --ignore-path .gitignore \"**/*.{json,md,ts}\""
+    },
+    "author": "Rogério Araújo <rogerio.araujo@mail.com>",
+    "repository": "rodgeraraujo/juno-api",
+    "license": "MIT",
+    "dependencies": {
+        "got": "^10.1.0",
+        "lodash": "^4.17.10"
+    },
+    "bugs": {
+        "url": "https://github.com/rodgeraraujo/juno-api/issues"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^11.0.0",
+        "@commitlint/config-conventional": "^11.0.0",
+        "eslint": "^7.19.0",
+        "eslint-config-prettier": "^7.2.0",
+        "eslint-plugin-prettier": "^3.3.1",
+        "husky": "^4.3.8",
+        "lint-staged": "^10.5.3",
+        "prettier": "^2.2.1"
+    }
 }

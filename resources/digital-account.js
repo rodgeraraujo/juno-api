@@ -12,10 +12,10 @@ const base = require('../mixins/index');
  * @public
  */
 function DigitalAccount(juno) {
-  this.juno = juno;
+    this.juno = juno;
 
-  this.name = 'digital-accounts';
-  this.key = '';
+    this.name = 'digital-accounts';
+    this.key = '';
 }
 
 assign(DigitalAccount.prototype, base);

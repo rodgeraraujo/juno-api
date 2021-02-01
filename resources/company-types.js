@@ -12,10 +12,10 @@ const base = require('../mixins/index');
  * @public
  */
 function CompanyTypes(juno) {
-  this.juno = juno;
+    this.juno = juno;
 
-  this.name = 'data/company-types';
-  this.key = '';
+    this.name = 'data/company-types';
+    this.key = '';
 }
 
 assign(CompanyTypes.prototype, base);
