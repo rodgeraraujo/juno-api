@@ -150,9 +150,7 @@ function delay(ms) {
  * @private
  */
 function getClientHash(clientId, clientSecret) {
-    const data = `${clientId}:${clientSecret}`;
-    const buff = new Buffer(data);
-    return buff.toString('base64');
+    return Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 }
 
 module.exports = Juno;
