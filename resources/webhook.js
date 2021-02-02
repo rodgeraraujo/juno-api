@@ -11,14 +11,14 @@ const baseChild = require('../mixins/base-child');
  * @constructor
  * @public
  */
-function CreditCardToken(juno) {
+function Webhook(juno) {
     this.juno = juno;
 
-    this.parentName = 'credit-cards';
-    this.name = 'tokenization';
+    this.parentName = 'notifications';
+    this.name = 'webhooks';
     this.key = '';
 }
 
-assign(CreditCardToken.prototype, baseChild);
+assign(Webhook.prototype, baseChild);
 
-module.exports = CreditCardToken;
+module.exports = Webhook;
