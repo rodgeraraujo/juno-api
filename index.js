@@ -5,7 +5,6 @@ const defaults = require('lodash/defaults');
 const got = require('got');
 const EventEmitter = require('events');
 const resources = require('./resources');
-const url = require('url');
 
 /**
  * Creates a Juno instance.
@@ -81,12 +80,15 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
         method,
     };
 
-    if (!this._options.isProd) uri.hostname += '/api-integration';
+    if (!this._options.isProd) uri.path = `/api-integration${uri.path}`;
 
     if (data) {
         options.json = key ? { [key]: data } : data;
     }
 
+    const url = `${uri.protocol}//${uri.hostname}${uri.path}`;
+
+    console.log(uri, options);
     return got(uri, options).then(
         (res) => {
             const body = res.body;
@@ -120,6 +122,8 @@ Juno.prototype.getAccessToken = function getAccessToken(uri, method, headers) {
         retry: 0,
         method,
     };
+
+    console.log(uri, options);
 
     return got(uri, options).then(
         (res) => {
