@@ -39,6 +39,25 @@ function Juno(options) {
         hostname: this._options.isProd ? 'api.juno.com.br' : 'sandbox.boletobancario.com',
         protocol: 'https:',
     };
+
+    this._baseHeaders = { 'User-Agent': `${pkg.name}/${pkg.version}` };
+
+    if (this._options.secretId && this._options.clientSecret) {
+        const hashBase64 = getClientHash(this._options.secretId, this._options.clientSecret);
+        this._baseHeaders.Authorization = 'Basic ' + hashBase64;
+    } else {
+        this._baseHeaders['X-Api-Version'] = !this._options.apiVersion
+            ? 2
+            : this._options.apiVersion;
+
+        if (this._options.accessToken) {
+            this._baseHeaders['Authorization'] = 'Bearer ' + this._options.accessToken;
+        }
+
+        if (this._options.resourceToken) {
+            this._baseHeaders['X-Resource-Token'] = this._options.resourceToken;
+        }
+    }
 }
 
 Object.setPrototypeOf(Juno.prototype, EventEmitter.prototype);
@@ -56,23 +75,13 @@ Object.setPrototypeOf(Juno.prototype, EventEmitter.prototype);
  */
 Juno.prototype.request = function request(uri, method, key, data, headers) {
     const options = {
-        headers: { 'User-Agent': `${pkg.name}/${pkg.version}`, ...headers },
+        headers: { ...headers, ...this._baseHeaders },
         responseType: 'json',
         retry: 0,
         method,
     };
 
     if (!this._options.isProd) uri.hostname += '/api-integration';
-
-    if (this._options.accessToken) {
-        options.headers['Authorization'] = 'Bearer ' + this._options.accessToken;
-    }
-
-    if (this._options.resourceToken) {
-        options.headers['X-Resource-Token'] = this._options.resourceToken;
-    }
-
-    options.headers['X-Api-Version'] = !this._options.apiVersion ? 2 : this._options.apiVersion;
 
     if (data) {
         options.json = key ? { [key]: data } : data;
@@ -106,17 +115,12 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
 
 Juno.prototype.getAccessToken = function getAccessToken(uri, method, headers) {
     const options = {
-        headers: { 'User-Agent': `${pkg.name}/${pkg.version}`, ...headers },
+        headers: { ...headers, ...this._baseHeaders },
         responseType: 'json',
         retry: 0,
         method,
     };
 
-    const hashBase64 = getClientHash(this._options.secretId, this._options.clientSecret);
-
-    options.headers['Authorization'] = 'Basic ' + hashBase64;
-
-    console.log(uri, options);
     return got(uri, options).then(
         (res) => {
             const body = res.body;

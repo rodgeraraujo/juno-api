@@ -61,7 +61,7 @@ const base = {
         path += `/${this.name}/${id}`;
         path = path.replace(/\/+/g, '/').replace(/\/$/, '');
 
-        const url = { path, ...this.juno.baseUrl };
+        const url = { path, ...this.juno._baseUrl };
 
         if (query) {
             url.search = '?' + qs.stringify(query, { arrayFormat: 'brackets' });
