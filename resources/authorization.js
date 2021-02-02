@@ -27,7 +27,7 @@ assign(Authorization.prototype);
  */
 Authorization.prototype.accessToken = function () {
     const path = buildPath(this.name, this.key, this.query);
-    const url = { path, ...this.juno.baseUrl };
+    const url = { path, ...this.juno._baseUrl };
     return this.juno.getAccessToken(url, 'POST');
 };
 
@@ -43,9 +43,9 @@ Authorization.prototype.accessToken = function () {
 function buildPath(name, key, query) {
     query || query === 0 || (query = '');
 
-    let path = '';
+    let path = '/authorization-server';
 
-    path += `/authorization-server/${name}/${key}`;
+    path += `/${name}/${key}`;
 
     if (query) {
         path += `?grant_type=${query}`;

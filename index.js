@@ -24,18 +24,19 @@ function Juno(options) {
     if (!(this instanceof Juno)) return new Juno(options);
     if (
         !options ||
-        !options.baseUrl ||
-        (!options.baseUrl && (!options.resourceToken || !options.accessToken)) ||
-        (!options.baseUrl && (!options.secretId || !options.clientSecret))
+        (!options.accessToken &&
+            !options.resourceToken &&
+            (!options.secretId || !options.clientSecret)) ||
+        (options.accessToken && options.resourceToken && (options.secretId || options.clientSecret))
     ) {
         throw new Error('Missing or invalid options');
     }
 
     EventEmitter.call(this);
-    this.options = defaults(options, {});
+    this._options = defaults(options, { isProd: true });
 
-    this.baseUrl = {
-        hostname: options.baseUrl,
+    this._baseUrl = {
+        hostname: this._options.isProd ? 'api.juno.com.br' : 'sandbox.boletobancario.com',
         protocol: 'https:',
     };
 }
@@ -61,15 +62,17 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
         method,
     };
 
-    if (this.options.accessToken) {
-        options.headers['Authorization'] = 'Bearer ' + this.options.accessToken;
+    if (!this._options.isProd) uri.hostname += '/api-integration';
+
+    if (this._options.accessToken) {
+        options.headers['Authorization'] = 'Bearer ' + this._options.accessToken;
     }
 
-    if (this.options.resourceToken) {
-        options.headers['X-Resource-Token'] = this.options.resourceToken;
+    if (this._options.resourceToken) {
+        options.headers['X-Resource-Token'] = this._options.resourceToken;
     }
 
-    options.headers['X-Api-Version'] = !this.options.apiVersion ? 2 : this.options.apiVersion;
+    options.headers['X-Api-Version'] = !this._options.apiVersion ? 2 : this._options.apiVersion;
 
     if (data) {
         options.json = key ? { [key]: data } : data;
@@ -83,7 +86,7 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
                 const retryAfter = res.headers['retry-after'] * 1000 || 0;
                 const { path, search } = url.URL(res.headers['location']);
                 return delay(retryAfter).then(() => {
-                    const uri = { path, ...this.baseUrl };
+                    const uri = { path, ...this._baseUrl };
 
                     if (search) uri.search = search;
 
@@ -109,10 +112,11 @@ Juno.prototype.getAccessToken = function getAccessToken(uri, method, headers) {
         method,
     };
 
-    const hashBase64 = getClientHash(this.options.secretId, this.options.clientSecret);
+    const hashBase64 = getClientHash(this._options.secretId, this._options.clientSecret);
 
     options.headers['Authorization'] = 'Basic ' + hashBase64;
 
+    console.log(uri, options);
     return got(uri, options).then(
         (res) => {
             const body = res.body;

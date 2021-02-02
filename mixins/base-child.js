@@ -81,7 +81,7 @@ const baseChild = {
     buildUrl(parentId, id, query) {
         id || id === 0 || (id = '');
 
-        let path = '/api-integration';
+        let path = '';
 
         path += `/${this.parentName}/${parentId}/${this.name}/${id}`;
         path = path.replace(/\/+/g, '/').replace(/\/$/, '');

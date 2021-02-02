@@ -58,7 +58,7 @@ const base = {
 
         let path = '';
 
-        path += `/api-integration/${this.name}/${id}`;
+        path += `/${this.name}/${id}`;
         path = path.replace(/\/+/g, '/').replace(/\/$/, '');
 
         const url = { path, ...this.juno.baseUrl };
