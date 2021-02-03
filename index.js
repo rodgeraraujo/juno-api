@@ -10,7 +10,7 @@ const resources = require('./resources');
  * Creates a Juno instance.
  *
  * @param {Object} options Configuration options
- * @param {String} options.secretId The juno client id
+ * @param {String} options.clientId The juno client id
  * @param {String} options.clientSecret The juno client isecret
  * @param {String} options.accessToken The persistent OAuth for client
  * @param {String} options.resourceToken The resource token
@@ -25,13 +25,12 @@ function Juno(options) {
         !options ||
         (!options.accessToken &&
             !options.resourceToken &&
-            (!options.secretId || !options.clientSecret)) ||
-        (options.accessToken && options.resourceToken && (options.secretId || options.clientSecret))
+            (!options.clientId || !options.clientSecret)) ||
+        (options.accessToken && options.resourceToken && (options.clientId || options.clientSecret))
     ) {
         throw new Error('Missing or invalid options');
     }
 
-    EventEmitter.call(this);
     this._options = defaults(options, { isProd: true });
 
     this._baseUrl = {
@@ -41,8 +40,8 @@ function Juno(options) {
 
     this._baseHeaders = { 'User-Agent': `${pkg.name}/${pkg.version}` };
 
-    if (this._options.secretId && this._options.clientSecret) {
-        const hashBase64 = getClientHash(this._options.secretId, this._options.clientSecret);
+    if (this._options.clientId && this._options.clientSecret) {
+        const hashBase64 = getClientHash(this._options.clientId, this._options.clientSecret);
         this._baseHeaders.Authorization = 'Basic ' + hashBase64;
     } else {
         this._baseHeaders['X-Api-Version'] = !this._options.apiVersion
@@ -57,6 +56,8 @@ function Juno(options) {
             this._baseHeaders['X-Resource-Token'] = this._options.resourceToken;
         }
     }
+
+    EventEmitter.call(this);
 }
 
 Object.setPrototypeOf(Juno.prototype, EventEmitter.prototype);
@@ -88,7 +89,6 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
 
     const url = `${uri.protocol}//${uri.hostname}${uri.path}`;
 
-    console.log(uri, options);
     return got(uri, options).then(
         (res) => {
             const body = res.body;
@@ -122,8 +122,6 @@ Juno.prototype.getAccessToken = function getAccessToken(uri, method, headers) {
         retry: 0,
         method,
     };
-
-    console.log(uri, options);
 
     return got(uri, options).then(
         (res) => {
