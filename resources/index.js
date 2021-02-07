@@ -12,6 +12,7 @@ const map = {
     payment: 'payment',
     credential: 'credential',
     credidCardToken: 'creditcard-token',
+    webhook: 'webhook',
 };
 
 /**

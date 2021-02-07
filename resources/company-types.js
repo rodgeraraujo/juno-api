@@ -2,7 +2,7 @@
 
 const assign = require('lodash/assign');
 
-const base = require('../mixins/index');
+const baseChild = require('../mixins/base-child');
 
 /**
  * Get Company Types instance.
@@ -14,10 +14,11 @@ const base = require('../mixins/index');
 function CompanyTypes(juno) {
     this.juno = juno;
 
-    this.name = 'data/company-types';
+    this.parentName = 'data';
+    this.name = 'company-types';
     this.key = '';
 }
 
-assign(CompanyTypes.prototype, base);
+assign(CompanyTypes.prototype, baseChild);
 
 module.exports = CompanyTypes;

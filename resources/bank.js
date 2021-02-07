@@ -2,7 +2,7 @@
 
 const assign = require('lodash/assign');
 
-const base = require('../mixins/index');
+const baseChild = require('../mixins/base-child');
 
 /**
  * Get Banks instance.
@@ -14,10 +14,11 @@ const base = require('../mixins/index');
 function Banks(juno) {
     this.juno = juno;
 
-    this.name = 'data/banks';
+    this.parentName = 'data';
+    this.name = 'banks';
     this.key = '';
 }
 
-assign(Banks.prototype, base);
+assign(Banks.prototype, baseChild);
 
 module.exports = Banks;

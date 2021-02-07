@@ -42,7 +42,32 @@ const base = {
      */
     list(params) {
         const url = this.buildUrl(undefined, params);
-        return this.juno.request(url, 'GET', this.name);
+        return this.juno.request(url, 'GET', this.key);
+    },
+
+    /**
+     * Deletes a record.
+     *
+     * @param {Number} id Record ID
+     * @return {Promise} Promise that resolves with the result
+     * @public
+     */
+    delete(id) {
+        const url = this.buildUrl(id);
+        return this.shopify.request(url, 'DELETE');
+    },
+
+    /**
+     * Updates a record.
+     *
+     * @param {Number} id Record ID
+     * @param {Object} params Record properties
+     * @return {Promise} Promise that resolves with the result
+     * @public
+     */
+    update(id, params) {
+        const url = this.buildUrl(id);
+        return this.shopify.request(url, 'PUT', this.key, params);
     },
 
     /**
