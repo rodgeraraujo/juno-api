@@ -22,18 +22,18 @@ options - Required - A plain JavaScript object containing configuration options.
 
 #### Options
 
-- `baseUrl` - Required - A string that specifies the api base URI (for use in sandbox or production.
-- `accessToken` - Required for make requests - A string representing the permanent OAuth 2.0 access token. This option is mutually exclusive with the `baseUrl` and `resourceToken`.
-- `resourceToken` - Required for make requests - A string that represents the permanent identifier of a digital account, which can be used when performing an operation. This option is mutually exclusive with the `baseUrl` and `accessToken`. OAuth 2.0 access token. This option is mutually exclusive with the `baseUrl` and `resourceToken`.
-- `secretId` - Required for get access token - The client id, public identifier for apps at Juno API. This option is mutually exclusive with the `baseUrl` and `clientSecret`.
-- `clientSecret` - Required for get access token - The client secret, a secret known only to the application and the authorization server. This option is mutually exclusive with the `baseUrl` and `secretId`.
+-   `isProd` - Optional - A boolean that specifies the api environment, default value is `true` (for use in sandbox set as `true`).
+-   `accessToken` - Required for make requests - A string representing the permanent OAuth 2.0 access token. This option is mutually exclusive with the `resourceToken`.
+-   `resourceToken` - Required for make requests - A string that represents the permanent identifier of a digital account, which can be used when performing an operation. This option is mutually exclusive with the `accessToken`.
+-   `clientId` - Required for get access token - The client id, public identifier for apps at Juno API. This option is mutually exclusive with the `clientSecret`.
+-   `clientSecret` - Required for get access token - The client secret, a secret known only to the application and the authorization server. This option is mutually exclusive with the `clientId`.
 
 #### Example usage
 
 This simples example, returns a object of a access token, to make requests to the Juno API.
 
 ```js
-var Juno = require('juno-api');
+const Juno = require('juno-api');
 
 const juno = new Juno({
   baseUrl: 'juno-base-url',
@@ -41,7 +41,7 @@ const juno = new Juno({
   clientSecret: 'your-client-secret',
 });
 
-var token = await juno.authorization.accessToken();
+const token = await juno.authorization.accessToken();
 
 console.log(token);
 
@@ -54,13 +54,13 @@ console.log(token);
   "user_name": "you-email",
   "jti": "jti-code"
 }
+
 const juno = new Juno({
-  baseUrl: 'juno-base-url',
   accessToken: token.access_token, // referring to the previous example
   resourceToken: 'your-resource-token',
 });
 
-var banks = await juno.banks.list(); // retrieves a list of banks
+const banks = await juno.banks.list(); // retrieves a list of banks
 ```
 
 ## Resources
@@ -69,9 +69,8 @@ Every resource is accessed through the juno instance:
 
 ```js
 const juno = new Juno({
-  baseUrl: 'juno-base-url',
-  accessToken: 'your-access-token',
-  resourceToken: 'your-resource-token',
+    accessToken: 'your-access-token',
+    resourceToken: 'your-resource-token',
 });
 
 // juno.<resource>.<method>
@@ -81,37 +80,48 @@ Each method returns a Promise that resolves with the result:
 
 ```js
 juno.businessArea
-  .get()
-  .then((reas) => console.log(reas))
-  .catch((err) => console.error(err));
+    .get()
+    .then((res) => console.log(res))
+    .catch((err) => console.error(err));
 ```
 
-## Available resources
+## Available resources and and methods
 
-- authorization
-  - `getAccessToken()`
-- balance
-  - `get()`
-- bank
-  - `list()`
-- businessArea
-  - `get()`
-- charge
-  - `create(params)`
-- digitalAccount
-  - `create(params)`
-  - `get(params)`
-- payment
-  - `create(params)`
+-   authorization
+    -   `getAccessToken()`
+-   balance
+    -   `get()`
+-   bank
+    -   `list()`
+-   businessArea
+    -   `list()`
+-   companyTypes
+    -   `list()`
+-   charge
+    -   `create(params)`
+-   digitalAccount
+    -   `create(params)`
+    -   `get(params)`
+-   payment
+    -   `create(params)`
+    -   `refund: (id, params)`
+    -   `capture: (id, params)`
+-   creditCardToken
+    -   `create(params)`
+-   credential
+    -   `get()`
+-   webhook
+    -   `create(params)`
+    -   `delete(id)`
+    -   `list(params)`
+    -   `update(id, params)`
 
-> Obs: `params` is a plain JavaScript object.
+> Obs: `params` is a plain JavaScript object, see Juno docs for params details.
 
 ## License
 
-[MIT](vscode-resource://file///Users/rodger/Developer/projects/Personal/juno/LICENSE)
+[MIT](https://github.com/rodgeraraujo/juno-api/blob/master/LICENSE)
 
 ## Author
 
 [Rogério Araújo](https://github.com/rodgeraraujo)
-
-Some content has been disabled in this document
