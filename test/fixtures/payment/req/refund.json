@@ -1,0 +1,21 @@
+{
+    "transactionId": "string",
+    "installments": 0,
+    "refunds": [
+        {
+            "id": "string",
+            "chargeId": "string",
+            "releaseDate": "yyyy-MM-dd HH:mm:ss",
+            "paybackDate": "yyyy-MM-dd HH:mm:ss",
+            "paybackAmount": 0,
+            "status": "string"
+        }
+    ],
+    "_links": [
+        {
+            "self": {
+                "href": "string"
+            }
+        }
+    ]
+}

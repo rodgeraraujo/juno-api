@@ -1,0 +1,25 @@
+{
+    "transactionId": "string",
+    "installments": 0,
+    "payments": [
+        {
+            "id": "string",
+            "chargeId": "string",
+            "date": "yyyy-MM-dd HH:mm:ss",
+            "releaseDate": "yyyy-MM-dd HH:mm:ss",
+            "amount": 0,
+            "fee": 0,
+            "type": "string",
+            "status": "CONFIRMED",
+            "transactionId": "string",
+            "failReason": "string"
+        }
+    ],
+    "_links": [
+        {
+            "self": {
+                "href": "string"
+            }
+        }
+    ]
+}

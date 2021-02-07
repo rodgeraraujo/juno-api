@@ -1,0 +1,4 @@
+{
+    "url": "string",
+    "eventTypes": ["DOCUMENT_STATUS_CHANGED"]
+}

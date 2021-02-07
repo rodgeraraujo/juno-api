@@ -1,0 +1,46 @@
+{
+    "charge": {
+        "pixKey": "stringstringstringstringstringstring",
+        "description": "string",
+        "references": ["string"],
+        "totalAmount": 0.01,
+        "amount": 0.01,
+        "dueDate": "yyyy-MM-dd",
+        "installments": 0,
+        "maxOverdueDays": 0,
+        "fine": 0,
+        "interest": "0.00",
+        "discountAmount": "0.00",
+        "discountDays": -1,
+        "paymentTypes": ["string"],
+        "paymentAdvance": true,
+        "feeSchemaToken": "string",
+        "split": [
+            {
+                "recipientToken": "string",
+                "amount": 10,
+                "percentage": 10,
+                "amountRemainder": true,
+                "chargeFee": true
+            }
+        ]
+    },
+    "billing": {
+        "name": "string",
+        "document": "string",
+        "email": "string",
+        "address": {
+            "street": "string",
+            "number": "string",
+            "complement": "string",
+            "neighborhood": "string",
+            "city": "string",
+            "state": "string",
+            "postCode": "string"
+        },
+        "secondaryEmail": "string",
+        "phone": "string",
+        "birthDate": "yyyy-MM-dd",
+        "notify": false
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "balance": 0,
+    "withheldBalance": 0,
+    "transferableBalance": 0,
+    "_links": [
+        {
+            "self": {
+                "href": "string"
+            }
+        }
+    ]
+}

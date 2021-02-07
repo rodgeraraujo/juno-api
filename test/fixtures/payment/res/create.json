@@ -1,0 +1,20 @@
+{
+    "chargeId": "string",
+    "billing": {
+        "email": "string",
+        "address": {
+            "street": "string",
+            "number": "string",
+            "complement": "string",
+            "neighborhood": "string",
+            "city": "string",
+            "state": "string",
+            "postCode": "string"
+        },
+        "delayed": true
+    },
+    "creditCardDetails": {
+        "creditCardId": "string",
+        "creditCardHash": "string"
+    }
+}

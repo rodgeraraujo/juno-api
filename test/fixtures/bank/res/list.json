@@ -1,0 +1,24 @@
+{
+    "_embedded": {
+        "banks": [
+            {
+                "number": "string",
+                "name": "string",
+                "_links": [
+                    {
+                        "self": {
+                            "href": "string"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "_links": [
+        {
+            "self": {
+                "href": "string"
+            }
+        }
+    ]
+}

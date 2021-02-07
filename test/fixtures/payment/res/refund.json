@@ -1,0 +1,12 @@
+{
+    "amount": 0,
+    "split": [
+        {
+            "recipientToken": "string",
+            "amount": 10,
+            "percentage": 10,
+            "amountRemainder": true,
+            "chargeFee": true
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "_embedded": {
+        "businessAreas": [
+            {
+                "code": 1003,
+                "activity": "string",
+                "category": "string",
+                "_links": [
+                    {
+                        "self": {
+                            "href": "string"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "_links": [
+        {
+            "self": {
+                "href": "string"
+            }
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+{
+    "status": "ACTIVE",
+    "eventTypes": ["DOCUMENT_STATUS_CHANGED"]
+}

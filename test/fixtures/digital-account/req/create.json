@@ -1,0 +1,38 @@
+{
+    "type": "PAYMENT",
+    "name": "string",
+    "document": "stringstrin",
+    "email": "string",
+    "birthDate": "yyyy-MM-dd",
+    "phone": "string",
+    "businessArea": 0,
+    "linesOfBusiness": "string",
+    "companyType": "MEI",
+    "legalRepresentative": {
+        "name": "string",
+        "document": "string",
+        "birthDate": "yyyy-MM-dd"
+    },
+    "address": {
+        "street": "string",
+        "number": "string",
+        "complement": "string",
+        "neighborhood": "string",
+        "city": "string",
+        "state": "string",
+        "postCode": "string"
+    },
+    "bankAccount": {
+        "bankNumber": "string",
+        "agencyNumber": "string",
+        "accountNumber": "string",
+        "accountComplementNumber": "001",
+        "accountType": "CHECKING",
+        "accountHolder": {
+            "name": "string",
+            "document": "string"
+        }
+    },
+    "emailOptOut": false,
+    "autoTransfer": false
+}

@@ -1,0 +1,41 @@
+{
+    "_embedded": {
+        "webhooks": [
+            {
+                "id": "string",
+                "url": "string",
+                "secret": "string",
+                "status": "ACTIVE",
+                "eventTypes": [
+                    {
+                        "id": "string",
+                        "name": "DOCUMENT_STATUS_CHANGED",
+                        "label": "string",
+                        "status": "ENABLED",
+                        "_links": [
+                            {
+                                "self": {
+                                    "href": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "_links": [
+                    {
+                        "self": {
+                            "href": "string"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "_links": [
+        {
+            "self": {
+                "href": "string"
+            }
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "companyTypes": ["MEI"],
+    "_links": [
+        {
+            "self": {
+                "href": "string"
+            }
+        }
+    ]
+}

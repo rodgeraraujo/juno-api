@@ -1,0 +1,16 @@
+{
+    "id": "string",
+    "type": "string",
+    "status": "AWAITING_DOCUMENTS",
+    "personType": null,
+    "document": "string",
+    "createdOn": "yyyy-MM-dd HH:mm:ss",
+    "resourceToken": "string",
+    "_links": [
+        {
+            "self": {
+                "href": "string"
+            }
+        }
+    ]
+}
