@@ -27,9 +27,9 @@ assign(Payment.prototype, base);
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Payment.prototype.refund = function refund(id) {
+Payment.prototype.refund = function refund(id, params) {
     const url = this.buildUrl(`${id}/refunds`);
-    return this.juno.request(url, 'POST', undefined).then((body) => body);
+    return this.juno.request(url, 'POST', this.key, params);
 };
 
 /**
@@ -39,8 +39,9 @@ Payment.prototype.refund = function refund(id) {
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Payment.prototype.refund = function refund(id) {
+Payment.prototype.capture = function capture(id, params) {
     const url = this.buildUrl(`${id}/capture`);
-    return this.juno.request(url, 'POST', undefined).then((body) => body);
+    return this.juno.request(url, 'POST', this.key, params);
 };
+
 module.exports = Payment;

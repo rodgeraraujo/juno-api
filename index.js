@@ -5,6 +5,7 @@ const defaults = require('lodash/defaults');
 const got = require('got');
 const EventEmitter = require('events');
 const resources = require('./resources');
+const url = require('url');
 
 /**
  * Creates a Juno instance.
@@ -38,7 +39,7 @@ function Juno(options) {
         protocol: 'https:',
     };
 
-    this._baseHeaders = { 'User-Agent': `${pkg.name}/${pkg.version}` };
+    this._baseHeaders = { 'User-Agent': `${pkg.name}/${pkg.version}`, Accept: 'application/json' };
 
     if (this._options.clientId && this._options.clientSecret) {
         const hashBase64 = getClientHash(this._options.clientId, this._options.clientSecret);
@@ -87,8 +88,6 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
         options.json = key ? { [key]: data } : data;
     }
 
-    const url = `${uri.protocol}//${uri.hostname}${uri.path}`;
-
     return got(uri, options).then(
         (res) => {
             const body = res.body;
@@ -97,17 +96,15 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
                 const retryAfter = res.headers['retry-after'] * 1000 || 0;
                 const { path, search } = url.URL(res.headers['location']);
                 return delay(retryAfter).then(() => {
-                    const uri = { path, ...this._baseUrl };
+                    const uriRetry = { path, ...this._baseUrl };
 
-                    if (search) uri.search = search;
+                    if (search) uriRetry.search = search;
 
-                    return this.request(uri, 'GET', key);
+                    return this.request(uriRetry, 'GET', key);
                 });
             }
 
-            const data = key ? body[key] : body || {};
-
-            return data;
+            return key ? body[key] : body || {};
         },
         (err) => {
             return Promise.reject(err);
