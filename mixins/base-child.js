@@ -77,7 +77,7 @@ const baseChild = {
     buildUrl(id, query) {
         id || id === 0 || (id = '');
 
-        let path = !this._options.isProd ? '/api-integration' : '';
+        let path = !this.juno._options.isProd ? '/api-integration' : '';
 
         path += `/${this.parentName}/${this.name}/${id}`;
         path = path.replace(/\/+/g, '/').replace(/\/$/, '');

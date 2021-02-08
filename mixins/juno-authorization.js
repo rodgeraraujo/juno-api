@@ -22,7 +22,6 @@ const junoAuthorization = {
             url.path += '?' + qs.stringify(query, { arrayFormat: 'brackets' });
         }
 
-        console.log(url);
         return url;
     },
 };
