@@ -14,7 +14,7 @@ $ npm install --save juno-api
 
 Creates a new `Juno` instance.
 
-Exports a constructor function which takes an `options` object, to creates a `Juno`instance.
+Exports a constructor function which takes an `options` object, to creates a `Juno` instance.
 
 ### Arguments
 
@@ -22,11 +22,19 @@ options - Required - A plain JavaScript object containing configuration options.
 
 #### Options
 
--   `isProd` - Optional - A boolean that specifies the api environment, default value is `true` (for use in sandbox set as `true`).
+-   `isProd` - Optional - A boolean that specifies the api environment, default value is `true` (for use in sandbox set as `false`).
 -   `accessToken` - Required for make requests - A string representing the permanent OAuth 2.0 access token. This option is mutually exclusive with the `resourceToken`.
 -   `resourceToken` - Required for make requests - A string that represents the permanent identifier of a digital account, which can be used when performing an operation. This option is mutually exclusive with the `accessToken`.
 -   `clientId` - Required for get access token - The client id, public identifier for apps at Juno API. This option is mutually exclusive with the `clientSecret`.
 -   `clientSecret` - Required for get access token - The client secret, a secret known only to the application and the authorization server. This option is mutually exclusive with the `clientId`.
+
+### Return
+
+A Shopify instance.
+
+### Exceptions
+
+Throws an `Error` exception if the required options are missing.
 
 #### Example usage
 
@@ -36,7 +44,6 @@ This simples example, returns a object of a access token, to make requests to th
 const Juno = require('juno-api');
 
 const juno = new Juno({
-  baseUrl: 'juno-base-url',
   clientId: 'your-client-id',
   clientSecret: 'your-client-secret',
 });
@@ -104,8 +111,8 @@ juno.businessArea
     -   `get(params)`
 -   payment
     -   `create(params)`
-    -   `refund: (id, params)`
-    -   `capture: (id, params)`
+    -   `refund(id, params)`
+    -   `capture(id, params)`
 -   creditCardToken
     -   `create(params)`
 -   credential

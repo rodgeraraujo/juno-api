@@ -9,7 +9,8 @@
     "files": [
         "resources",
         "mixins",
-        "index.js"
+        "index.js",
+        "index.d.ts"
     ],
     "scripts": {
         "test": "npm run lint && c8 --reporter=lcov --reporter=text jest",
@@ -39,5 +40,10 @@
         "lint-staged": "^10.5.3",
         "nock": "^13.0.7",
         "prettier": "^2.2.1"
-    }
+    },
+    "keywords": [
+        "Juno",
+        "API",
+        "Client"
+    ]
 }
