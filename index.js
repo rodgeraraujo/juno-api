@@ -82,8 +82,6 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
         method,
     };
 
-    if (!this._options.isProd) uri.path = `/api-integration${uri.path}`;
-
     if (data) {
         options.json = key ? { [key]: data } : data;
     }
@@ -105,25 +103,6 @@ Juno.prototype.request = function request(uri, method, key, data, headers) {
             }
 
             return key ? body[key] : body || {};
-        },
-        (err) => {
-            return Promise.reject(err);
-        }
-    );
-};
-
-Juno.prototype.getAccessToken = function getAccessToken(uri, method, headers) {
-    const options = {
-        headers: { ...headers, ...this._baseHeaders },
-        responseType: 'json',
-        retry: 0,
-        method,
-    };
-
-    return got(uri, options).then(
-        (res) => {
-            const body = res.body;
-            return body;
         },
         (err) => {
             return Promise.reject(err);

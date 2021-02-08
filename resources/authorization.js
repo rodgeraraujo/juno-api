@@ -2,6 +2,7 @@
 
 const assign = require('lodash/assign');
 
+const junoAuthorization = require('../mixins/juno-authorization');
 /**
  * Creates a Authorization instance.
  *
@@ -12,12 +13,12 @@ const assign = require('lodash/assign');
 function Authorization(juno) {
     this.juno = juno;
 
-    this.name = 'oauth';
-    this.key = 'token';
-    this.query = 'client_credentials';
+    this.name = 'token';
+    this.key = '';
+    this.query = { grant_type: 'client_credentials' };
 }
 
-assign(Authorization.prototype);
+assign(Authorization.prototype, junoAuthorization);
 
 /**
  * Gets the access token for client credentials.
@@ -26,33 +27,8 @@ assign(Authorization.prototype);
  * @public
  */
 Authorization.prototype.accessToken = function () {
-    const path = buildPath(this.name, this.key, this.query);
-    const url = { path, ...this.juno._baseUrl };
-    return this.juno.getAccessToken(url, 'POST');
+    const url = this.buildUrl(this.query);
+    return this.juno.request(url, 'POST');
 };
-
-/**
- * Builds the request path.
- *
- * @param {String} [name] Name of request
- * @param {String} [key] Key of reqquest
- * @param {Object} [query] Query parameters
- * @return {String} PATH string
- * @private
- */
-function buildPath(name, key, query) {
-    query || query === 0 || (query = '');
-
-    let path = '/authorization-server';
-
-    path += `/${name}/${key}`;
-
-    if (query) {
-        path += `?grant_type=${query}`;
-    }
-    path = path.replace(/\/+/g, '/').replace(/\/$/, '');
-
-    return path;
-}
 
 module.exports = Authorization;

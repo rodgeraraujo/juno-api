@@ -2,7 +2,7 @@
 
 const assign = require('lodash/assign');
 
-const base = require('../mixins/index');
+const base = require('../mixins/base');
 
 /**
  * Get Banks instance.
