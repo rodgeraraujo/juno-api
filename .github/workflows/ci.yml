@@ -1,25 +1,26 @@
 name: CI
 
 on:
-  - push
-  - pull_request
+    - push
+    - pull_request
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node:
-          - 12
-          - 14
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - run: npm ci
-      - run: npm test
-      - uses: coverallsapp/github-action@v1.1.2
-        if: matrix.node == 14
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+    test:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node:
+                    - 12
+                    - 14
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+            - run: npm ci
+            - run: npm test
+            - uses: coverallsapp/github-action@v1.1.2
+              if: matrix.node == 14
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+            - run: node_modules/.bin/codecov
