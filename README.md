@@ -1,8 +1,11 @@
 # Juno API Node.js
 
-[![npm version](https://badge.fury.io/js/juno-api.svg)](https://badge.fury.io/js/juno-api) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/juno-api?logo=npm&style=flat-square)](https://badge.fury.io/js/juno-api)
+[![npm downloads](https://img.shields.io/npm/dm/juno-api?logo=npm&style=flat-square)](https://www.npmjs.com/package/juno-api)
+[![codecov.io](https://img.shields.io/codecov/c/github/rodgeraraujo/juno-api?style=flat-square&branch=master&logo=codecov)](https://codecov.io/github/rodgeraraujo/juno-api?branch=master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-Bindings for [Juno](https://juno.com.br/) API
+> Bindings for [Juno](https://juno.com.br/) payments API.
 
 ## Installation:
 
