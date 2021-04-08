@@ -10,6 +10,7 @@ const map = {
     creditCard: 'credit-card',
     digitalAccount: 'digital-account',
     payment: 'payment',
+    transfer: 'transfer',
     credential: 'credential',
     credidCardToken: 'creditcard-token',
     webhook: 'webhook',
