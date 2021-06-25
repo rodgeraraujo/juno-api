@@ -113,7 +113,7 @@ juno.businessArea
     -   `create(params)`
     -   `refund(id, params)`
     -   `capture(id, params)`
--   creditCardToken
+-   creditCard
     -   `create(params)`
 -   credential
     -   `get()`
