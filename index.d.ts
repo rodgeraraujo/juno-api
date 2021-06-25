@@ -27,8 +27,7 @@ declare class Juno {
     charge: {
         create: (params: Juno.ICreateCharge) => Promise<Juno.IResponseListing<Juno.ICharge>>;
     };
-    creditCard: {};
-    creditCardToken: {
+    creditCard: {
         create: (params: Juno.ICreateCreditCardToken) => Promise<Juno.ITokenizedCreditCard>;
     };
     digitalAccount: {
