@@ -20,7 +20,7 @@
     "repository": "rodgeraraujo/juno-api",
     "license": "MIT",
     "dependencies": {
-        "got": "^10.1.0",
+        "got": "^11.8.5",
         "lodash": "^4.17.10"
     },
     "bugs": {
